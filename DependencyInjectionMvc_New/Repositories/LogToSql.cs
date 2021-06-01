@@ -11,7 +11,6 @@ namespace DependencyInjectionMvc_New.Repositories
 {
     public class LogToSql:IDatabaseStrategy
     {
-       
         public void Log(string message, string media)
         {
 
@@ -25,8 +24,6 @@ namespace DependencyInjectionMvc_New.Repositories
                        LoggedText = message
                    });
             }
-        }
-
-     
+        }     
     }
 }

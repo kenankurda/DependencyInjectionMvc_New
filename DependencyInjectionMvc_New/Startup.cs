@@ -29,8 +29,8 @@ namespace DependencyInjectionMvc_New
 
             services.AddTransient<IPersonRepository, PersonRepository>();
             services.AddTransient<IAddressRepo, AddressRepository>();
-            //services.AddTransient<IDatabaseStrategy, LogToSql>();
-            services.AddTransient<IDatabaseStrategy, LogToTextFile>();
+            services.AddTransient<IDatabaseStrategy, LogToSql>();
+            //services.AddTransient<IDatabaseStrategy, LogToTextFile>();
 
         }
 

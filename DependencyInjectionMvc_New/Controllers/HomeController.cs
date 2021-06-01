@@ -45,7 +45,7 @@ namespace DependencyInjectionMvc_New.Controllers
             
             Log log = new Log();
             
-            _logger.Log("sixth message is logged to db", Get_SetConnectionString());
+            _logger.Log("sixth message is logged to db", _configuration["Logging:ConnectionStrings:DefaultConnection"]);
             
 
             return View();
@@ -55,10 +55,6 @@ namespace DependencyInjectionMvc_New.Controllers
         {
             return View();
         }
-        public string Get_SetConnectionString()
-        {
-            return _configuration["Logging:ConnectionStrings:DefaultParkingConnection"];
-        }
-
+     
     }
 }
