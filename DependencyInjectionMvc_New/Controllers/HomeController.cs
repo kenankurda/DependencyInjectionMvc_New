@@ -4,6 +4,7 @@ using DependencyInjectionMvc_New.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -17,14 +18,21 @@ namespace DependencyInjectionMvc_New.Controllers
         private readonly IDatabaseStrategy _logger;
         private readonly IPersonRepository _personRepository = null;
         private readonly IAddressRepo _addressRepo = null;
-        public HomeController(IDatabaseStrategy logger,IPersonRepository personRepository, IAddressRepo addressRepo)
+        private  IConfiguration _configuration { get; }
+
+
+        public HomeController(IPersonRepository personRepository, IAddressRepo addressRepo, IConfiguration configuration, IDatabaseStrategy logger )
         {
+            _configuration = configuration; 
             _personRepository = personRepository;
             _addressRepo = addressRepo;
-            _logger = logger;
+            _logger = logger;            
         }
+
+
         public IActionResult Index()
         {
+            string  dbConn = _configuration.GetSection("ConnectionStrings").GetSection("DefaultParkingConnection").Value;
 
             Person p = new Person();
             p.Id = 1; p.Name = "Kenan";
@@ -34,8 +42,10 @@ namespace DependencyInjectionMvc_New.Controllers
             a.Id = 1; a.Street = "Center";
             _addressRepo.Add(a);
 
-            //Log log = new Log();
-            _logger.Log("sixth message is logged to db");
+            
+            Log log = new Log();
+            
+            _logger.Log("sixth message is logged to db", Get_SetConnectionString());
             
 
             return View();
@@ -44,6 +54,10 @@ namespace DependencyInjectionMvc_New.Controllers
         public IActionResult Privacy()
         {
             return View();
+        }
+        public string Get_SetConnectionString()
+        {
+            return _configuration["Logging:ConnectionStrings:DefaultParkingConnection"];
         }
 
     }

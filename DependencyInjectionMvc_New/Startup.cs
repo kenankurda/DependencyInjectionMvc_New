@@ -16,27 +16,22 @@ namespace DependencyInjectionMvc_New
 {
     public class Startup
     {
-        private IConfiguration _config;
         public Startup(IConfiguration configuration)
         {
-            _config = configuration;
-            
+            Configuration = configuration;
         }
 
         public IConfiguration Configuration { get; }
-       
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
 
-           // var connectionString = new ConnectionString(Configuration.GetConnectionString("DefaultConnection"));
             services.AddTransient<IPersonRepository, PersonRepository>();
             services.AddTransient<IAddressRepo, AddressRepository>();
-            services.AddTransient<IDatabaseStrategy, LogToSql>();
-            //services.AddTransient<IDatabaseStrategy, LogToTextFile>();
-            var connectionString = new ConnectionString(Configuration.GetConnectionString("DefaultConnection"));
-            services.AddSingleton(connectionString);
+            //services.AddTransient<IDatabaseStrategy, LogToSql>();
+            services.AddTransient<IDatabaseStrategy, LogToTextFile>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

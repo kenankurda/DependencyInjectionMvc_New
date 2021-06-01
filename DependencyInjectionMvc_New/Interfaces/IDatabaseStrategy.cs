@@ -8,6 +8,6 @@ namespace DependencyInjectionMvc_New.Interfaces
 {
     public interface IDatabaseStrategy
     {
-        public void Log(string message);
+        public void Log(string message, string media);
     }
 }

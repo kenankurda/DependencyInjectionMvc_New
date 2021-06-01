@@ -11,7 +11,7 @@ namespace DependencyInjectionMvc_New.Repositories
     public class LogToTextFile : IDatabaseStrategy
     {
 
-        public void Log(string message)
+        public void Log(string message, string media)
         {
             string path = @"D:\test\logFile.txt";
             using (var sw = new StreamWriter(path, true))
